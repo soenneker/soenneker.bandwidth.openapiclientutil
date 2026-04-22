@@ -38,7 +38,7 @@ jobs:
         run: dotnet build test/Soenneker.Bandwidth.OpenApiClientUtil.Tests/Soenneker.Bandwidth.OpenApiClientUtil.Tests.csproj --configuration Release --no-restore --verbosity minimal
 
       - name: Test
-        run: dotnet test test/Soenneker.Bandwidth.OpenApiClientUtil.Tests/Soenneker.Bandwidth.OpenApiClientUtil.Tests.csproj --configuration Release --no-build --no-restore --verbosity minimal
+        run: dotnet test --project test/Soenneker.Bandwidth.OpenApiClientUtil.Tests/Soenneker.Bandwidth.OpenApiClientUtil.Tests.csproj --configuration Release --no-build --no-restore --verbosity minimal
 
       - name: Pack
         run: dotnet pack src/Soenneker.Bandwidth.OpenApiClientUtil/Soenneker.Bandwidth.OpenApiClientUtil.csproj --configuration Release --no-build --no-restore --output . --verbosity minimal
