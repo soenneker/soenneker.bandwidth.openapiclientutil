@@ -14,7 +14,6 @@ using Soenneker.Utils.AsyncSingleton;
 
 namespace Soenneker.Bandwidth.OpenApiClientUtil;
 
-///<inheritdoc cref="IBandwidthOpenApiClientUtil"/>
 public sealed class BandwidthOpenApiClientUtil : IBandwidthOpenApiClientUtil
 {
     private readonly AsyncSingleton<BandwidthOpenApiClient> _client;
@@ -26,10 +25,11 @@ public sealed class BandwidthOpenApiClientUtil : IBandwidthOpenApiClientUtil
             HttpClient httpClient = await httpClientUtil.Get(token).NoSync();
 
             var apiKey = configuration.GetValueStrict<string>("Bandwidth:ApiKey");
+            string authHeaderName = configuration["Bandwidth:AuthHeaderName"] ?? "Authorization";
             string authHeaderValueTemplate = configuration["Bandwidth:AuthHeaderValueTemplate"] ?? "Bearer {token}";
             string authHeaderValue = authHeaderValueTemplate.Replace("{token}", apiKey, StringComparison.Ordinal);
 
-            var requestAdapter = new HttpClientRequestAdapter(new GenericAuthenticationProvider(headerValue: authHeaderValue), httpClient: httpClient);
+            var requestAdapter = new HttpClientRequestAdapter(new GenericAuthenticationProvider(authHeaderName, authHeaderValue), httpClient: httpClient);
 
             return new BandwidthOpenApiClient(requestAdapter);
         });
@@ -40,18 +40,11 @@ public sealed class BandwidthOpenApiClientUtil : IBandwidthOpenApiClientUtil
         return _client.Get(cancellationToken);
     }
 
-    /// <summary>
-    /// Releases resources used by the current instance.
-    /// </summary>
     public void Dispose()
     {
         _client.Dispose();
     }
 
-    /// <summary>
-    /// Asynchronously releases resources used by the current instance.
-    /// </summary>
-    /// <returns>A task that represents the asynchronous operation.</returns>
     public ValueTask DisposeAsync()
     {
         return _client.DisposeAsync();

@@ -11,7 +11,7 @@ namespace Soenneker.Bandwidth.OpenApiClientUtil.Registrars;
 public static class BandwidthOpenApiClientUtilRegistrar
 {
     /// <summary>
-    /// Adds <see cref="BandwidthOpenApiClientUtil"/> as a singleton service. <para/>
+    /// Adds <see cref="IBandwidthOpenApiClientUtil"/> as a singleton service backed by the singleton HTTP-client provider.
     /// </summary>
     public static IServiceCollection AddBandwidthOpenApiClientUtilAsSingleton(this IServiceCollection services)
     {
@@ -22,7 +22,7 @@ public static class BandwidthOpenApiClientUtilRegistrar
     }
 
     /// <summary>
-    /// Adds <see cref="BandwidthOpenApiClientUtil"/> as a scoped service. <para/>
+    /// Adds <see cref="IBandwidthOpenApiClientUtil"/> as a scoped service backed by the singleton HTTP-client provider.
     /// </summary>
     public static IServiceCollection AddBandwidthOpenApiClientUtilAsScoped(this IServiceCollection services)
     {
