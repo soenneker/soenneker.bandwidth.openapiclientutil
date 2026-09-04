@@ -14,6 +14,7 @@ using Soenneker.Utils.AsyncSingleton;
 
 namespace Soenneker.Bandwidth.OpenApiClientUtil;
 
+/// <inheritdoc cref="IBandwidthOpenApiClientUtil" />
 public sealed class BandwidthOpenApiClientUtil : IBandwidthOpenApiClientUtil
 {
     private readonly AsyncSingleton<BandwidthOpenApiClient> _client;
