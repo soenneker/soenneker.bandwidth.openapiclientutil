@@ -25,7 +25,7 @@ public sealed class BandwidthOpenApiClientUtil : IBandwidthOpenApiClientUtil
         {
             HttpClient httpClient = await httpClientUtil.Get(token).NoSync();
 
-            var apiKey = configuration.GetValueStrict<string>("Bandwidth:ApiKey");
+            var apiKey = configuration.GetStringStrict("Bandwidth:ApiKey");
             string authHeaderName = configuration["Bandwidth:AuthHeaderName"] ?? "Authorization";
             string authHeaderValueTemplate = configuration["Bandwidth:AuthHeaderValueTemplate"] ?? "Bearer {token}";
             string authHeaderValue = authHeaderValueTemplate.Replace("{token}", apiKey, StringComparison.Ordinal);
